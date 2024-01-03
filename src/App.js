@@ -1,14 +1,35 @@
-import logo from './logo.svg';
+
+import { useDispatch } from 'react-redux';
 import './App.css';
+import { useEffect, useState } from 'react';
+import authservice from './appwrite/Auth';
+import { login, logout } from '../src/Store/AuthSlice'
 
 function App() {
-  console.log(process.env.REACT_APP_APPWRITE_URL)
-  return (
-    <div className="App">
-     
-    <h1>Mega blog </h1>
-    </div>
-  );
+
+const[loading,setloading] = useState(true)
+  const dispatch = useDispatch()
+  useEffect(() => {
+   
+    authservice.getCurrentUser().then((userdata) => {
+      if (userdata) {
+        dispatch(login({userdata}))
+      }
+      else {
+        dispatch(logout())
+      }
+    }).finally(()=>{
+      setloading(false)
+    })
+  }, [])
+
+  return !loading ? (
+    <>
+    <h2>lorem</h2>
+    </>
+  ) : (
+    <h1>deepak</h1>
+  )
 }
 
 export default App;
