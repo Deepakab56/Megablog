@@ -100,11 +100,14 @@ export class Service{
        }
     }
 
-    async getFile(fileID){
+     getFile(fileID){
         try {
-            return await this.storage.getFile(conf.appwrite_bucket_id, fileID)
+            return  this.storage.getFile(conf.appwrite_bucket_id, fileID)
         } catch (error) {
             console.log("appwrite error ")
         }
     }
 }
+
+const service = new Service()
+ export default service
