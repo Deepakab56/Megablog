@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import authservice from '../appwrite/Auth';
 import { login as authlogin } from '../Store/AuthSlice';
 import Input from './Input';
+import Logo from './Logo';
 
-function Signup(props) {
+function SignupForm(props) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [error, seterror] = useState('')
@@ -19,7 +20,7 @@ function Signup(props) {
             const response = await authservice.createAccount(data)
             if (response) {
                 const userdata = await authservice.getCurrentUser()
-                if (user) dispatch(authlogin(data))
+                if (userdata) dispatch(authlogin(data))
             }
         } catch (error) {
 
@@ -43,7 +44,7 @@ function Signup(props) {
 
                 {error && <p className='text-center text-red-600 mt-8 '>{error}</p>}
 
-                <form onSubmit={handleSubmit(login)} className='mt-3'>
+                <form onSubmit={handleSubmit(signup)} className='mt-3'>
                     <div className="space-y-8">
 
                         <Input
@@ -69,7 +70,7 @@ function Signup(props) {
                         <Input label="password"
                             placeholder="enter the password"
                             type="password"
-                            {...require("password", {
+                            {...register("password", {
                                 require: true
                             })}
 
@@ -91,4 +92,4 @@ function Signup(props) {
     );
 }
 
-export default Signup;
+export default SignupForm;

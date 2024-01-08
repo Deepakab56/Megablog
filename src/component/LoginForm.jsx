@@ -7,7 +7,7 @@ import { login as authlogin } from '../Store/AuthSlice';
 import Logo from './Logo';
 import Input from './Input';
 
-function Login(props) {
+function LoginForm(props) {
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -66,7 +66,7 @@ function Login(props) {
                            <Input label="password"
                             placeholder="enter the password"
                             type="password"
-                            {...require("password" ,{
+                            {...register("password" ,{
                                 require:true
                             })}
                            
@@ -88,4 +88,4 @@ function Login(props) {
     );
 }
 
-export default Login;   
+export default LoginForm;   
